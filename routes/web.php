@@ -17,6 +17,8 @@ Route::middleware(['auth'])->group(function () {
 })->middleware(['auth'])->name('dashboard');
 
 
+
+
     /* theme switch (light ↔ dark) */
     Route::post('/theme/toggle', [TaskController::class,'toggleTheme'])->name('theme.toggle');
 });
