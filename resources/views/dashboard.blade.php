@@ -10,6 +10,11 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+
+                    <!-- টাস্ক লিঙ্ক অ্যাড করুন -->
+                    <div class="mt-4">
+                        <a href="{{ route('tasks.index') }}" class="btn btn-primary">Go to My Tasks</a>
+                    </div>
                 </div>
             </div>
         </div>

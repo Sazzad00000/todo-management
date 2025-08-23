@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
     <meta charset="utf-8">
-    <title>{{ config('app.name', 'To-Do') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <title><?php echo e(config('app.name', 'To-Do')); ?></title>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <style>
         body { background: #f5f5f5; color: #000; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         body.dark { background: #121212; color: #fff; }
@@ -16,28 +16,29 @@
         body.dark .table th, body.dark .table td { border-color: #444; }
     </style>
 </head>
-<body class="{{ request()->cookie('theme', 'light') }}">
+<body class="<?php echo e(request()->cookie('theme', 'light')); ?>">
 
     <!-- থিম টগল বাটন -->
-    @auth
-        <form action="{{ route('theme.toggle') }}" method="POST" style="position:fixed;top:1rem;right:1rem;">
-            @csrf
+    <?php if(auth()->guard()->check()): ?>
+        <form action="<?php echo e(route('theme.toggle')); ?>" method="POST" style="position:fixed;top:1rem;right:1rem;">
+            <?php echo csrf_field(); ?>
             <button type="submit" class="btn">
-                {{ request()->cookie('theme', 'light') === 'dark' ? '☀️' : '🌙' }}
+                <?php echo e(request()->cookie('theme', 'light') === 'dark' ? '☀️' : '🌙'); ?>
+
             </button>
         </form>
-    @endauth
+    <?php endif; ?>
 
     <!-- লগআউট -->
-    @auth
-        <form method="POST" action="{{ route('logout') }}" style="position:fixed;top:1rem;right:6rem;">
-            @csrf
+    <?php if(auth()->guard()->check()): ?>
+        <form method="POST" action="<?php echo e(route('logout')); ?>" style="position:fixed;top:1rem;right:6rem;">
+            <?php echo csrf_field(); ?>
             <button type="submit" class="btn">Logout</button>
         </form>
-    @endauth
+    <?php endif; ?>
 
     <div class="card">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
     </div>
 
     <!-- অটো থিম অ্যাপ্লাই JS -->
@@ -51,3 +52,4 @@
 
 </body>
 </html>
+<?php /**PATH C:\Users\USER\todo-session\resources\views/layouts/app.blade.php ENDPATH**/ ?>

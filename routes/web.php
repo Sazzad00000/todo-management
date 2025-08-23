@@ -1,26 +1,35 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
+use Illuminate\Http\Request;           // Request type-hint করার জন্য
+use Illuminate\Support\Facades\Route;
 
-Route::redirect('/', '/tasks');
+/* ---------- Public ---------- */
+Route::get('/', fn () => view('welcome'));
 
-Route::middleware(['auth'])->group(function () {
-    Route::get   ('/tasks',           [TaskController::class,'index'])  ->name('tasks.index');
-    Route::get   ('/tasks/create',    [TaskController::class,'create']) ->name('tasks.create');
-    Route::post  ('/tasks',           [TaskController::class,'store'])  ->name('tasks.store');
-    Route::get   ('/tasks/{id}/edit', [TaskController::class,'edit'])   ->name('tasks.edit');
-    Route::put   ('/tasks/{id}',      [TaskController::class,'update']) ->name('tasks.update');
-    Route::delete('/tasks/{id}',      [TaskController::class,'destroy'])->name('tasks.destroy');
-    Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', fn () => view('dashboard'))
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
+/* ---------- Auth-protected ---------- */
+Route::middleware('auth')->group(function () {
 
+    /* --- Breeze Profile --- */
+    Route::get   ('/profile',  [ProfileController::class, 'edit' ])->name('profile.edit');
+    Route::patch ('/profile',  [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile',  [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    /* --- To-Do Tasks (CRUD) --- */
+    Route::resource('tasks', TaskController::class)   // index, create, store, edit, update, destroy
+         ->except('show');                            // show রুট দরকার নেই
 
-    /* theme switch (light ↔ dark) */
-    Route::post('/theme/toggle', [TaskController::class,'toggleTheme'])->name('theme.toggle');
+    /* --- Theme Toggle (Cookie) --- */
+    Route::post('/theme/toggle', function (Request $request) {
+        $new = $request->cookie('theme', 'light') === 'light' ? 'dark' : 'light';
+        return back()->withCookie(cookie('theme', $new, 60 * 24 * 365));
+    })->name('theme.toggle');
 });
 
+/* --- Breeze Auth Routes --- */
 require __DIR__.'/auth.php';
