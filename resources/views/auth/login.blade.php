@@ -44,4 +44,11 @@
             </x-primary-button>
         </div>
     </form>
+<<<<<<< HEAD
+=======
+    <div style="text-align: center; margin-top: 15px;">
+    <p>Don't have an account? <a href="{{ route('register') }}" style="color: #673ab7;">Register</a></p>
+</div>
+
+>>>>>>> b003ea31e7bc326646efdec4665b8c8836014d36
 </x-guest-layout>

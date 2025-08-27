@@ -10,6 +10,14 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+<<<<<<< HEAD
+=======
+
+                    <!-- টাস্ক লিঙ্ক অ্যাড করুন -->
+                    <div class="mt-4">
+                        <a href="{{ route('tasks.index') }}" class="btn btn-primary">Go to My Tasks</a>
+                    </div>
+>>>>>>> b003ea31e7bc326646efdec4665b8c8836014d36
                 </div>
             </div>
         </div>

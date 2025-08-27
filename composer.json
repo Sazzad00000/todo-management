@@ -8,17 +8,31 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",
+<<<<<<< HEAD
         "laravel/tinker": "^2.10.1"
+=======
+        "laravel/tinker": "^2.10.1",
+        "yajra/laravel-datatables-oracle": "^12.0"
+>>>>>>> b003ea31e7bc326646efdec4665b8c8836014d36
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "laravel/breeze": "^2.3",
         "laravel/pail": "^1.2.2",
+<<<<<<< HEAD
         "laravel/pint": "^1.24",
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
         "phpunit/phpunit": "^11.5.3"
+=======
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.41",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^3.8",
+        "pestphp/pest-plugin-laravel": "^3.2"
+>>>>>>> b003ea31e7bc326646efdec4665b8c8836014d36
     },
     "autoload": {
         "psr-4": {
@@ -34,7 +48,12 @@
     },
     "scripts": {
         "post-autoload-dump": [
+<<<<<<< HEAD
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+=======
+            "@php artisan config:clear",
+            "@php artisan clear-compiled",
+>>>>>>> b003ea31e7bc326646efdec4665b8c8836014d36
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
@@ -50,7 +69,11 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
+<<<<<<< HEAD
             "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+=======
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+>>>>>>> b003ea31e7bc326646efdec4665b8c8836014d36
         ],
         "test": [
             "@php artisan config:clear --ansi",
